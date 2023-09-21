@@ -34,3 +34,41 @@ export const Lista=()=>{
 
     )
 }
+
+
+
+export const Lista2=()=>{
+    const [lista2, setLista2] = useState([{
+        id:0,
+        descripcion:'',
+        fecha:'',
+        imagen:'',
+        ubicacion:'',
+        idUser:''
+    }]);
+
+    useEffect(()=>{
+        axios.get('http://localhost:3000/api/posts')
+        .then((resp)=>{
+            const datos2 = resp.data.posts;
+            setLista2(datos2);
+            console.log(lista2);
+        })
+        .catch((error)=>{
+            alert('No podemos mostrarte los datos. Algo está fallando');
+            console.log(error);
+        })
+    },[]);
+
+    return (
+        <>
+            <h1>Lista de posteos</h1>
+            <ul>
+                {lista2.map((posteos)=>{
+                    <li>{posteos.descripcion}</li>
+                })}
+            </ul>
+        </>
+
+    )
+}
